@@ -49,3 +49,43 @@ class Labels(ShortcutStream):
     name = "labels"
     path = "/api/v3/labels"
     primary_keys = ["id"]
+
+
+class Categories(ShortcutStream):
+    """Categories stream."""
+
+    name = "categories"
+    path = "/api/v3/categories"
+    primary_keys = ["id"]
+
+
+class Files(ShortcutStream):
+    """Files stream."""
+
+    name = "files"
+    path = "/api/v3/files"
+    primary_keys = ["id"]
+
+
+class Groups(ShortcutStream):
+    """Groups stream."""
+
+    name = "groups"
+    path = "/api/v3/groups"
+    primary_keys = ["id"]
+
+
+class Iterations(ShortcutStream):
+    """Iterations stream."""
+
+    name = "iterations"
+    path = "/api/v3/iterations"
+    primary_keys = ["id"]
+
+
+class Repositories(ShortcutStream):
+    """Repositories stream."""
+
+    name = "repositories"
+    path = "/api/v3/repositories"
+    primary_keys = ["id"]

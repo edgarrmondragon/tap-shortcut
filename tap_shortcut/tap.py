@@ -10,14 +10,31 @@ from singer_sdk import typing as th
 from toolz.dicttoolz import get_in
 
 from tap_shortcut.client import ShortcutStream
-from tap_shortcut.streams import Epics, Labels, Members, Milestones, Projects, Workflows
-
-STREAM_TYPES: List[Type[ShortcutStream]] = [
+from tap_shortcut.streams import (
+    Categories,
     Epics,
+    Files,
+    Groups,
+    Iterations,
     Labels,
     Members,
     Milestones,
     Projects,
+    Repositories,
+    Workflows,
+)
+
+STREAM_TYPES: List[Type[ShortcutStream]] = [
+    Categories,
+    Epics,
+    Files,
+    Groups,
+    Iterations,
+    Labels,
+    Members,
+    Milestones,
+    Projects,
+    Repositories,
     Workflows,
 ]
 
