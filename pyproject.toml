@@ -25,7 +25,7 @@ isort = "^5.10.1"
 mypy = ">=0.930"
 pytest = "^6.2.5"
 pyupgrade = "^2.31.0"
-types-requests = "^2.27.1"
+types-requests = "^2.27.5"
 
 # Flake8
 darglint = "^1.8.1"
