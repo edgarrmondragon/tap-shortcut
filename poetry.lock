@@ -686,7 +686,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "toolz"
-version = "0.11.2"
+version = "0.12.0"
 description = "List processing tools and functional utilities"
 category = "main"
 optional = false
@@ -755,7 +755,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.7.1"
-content-hash = "350394d5ebf1ce3319e96bb4a6f59416ae9911ac0ef6917b95b5b1ca906928cd"
+content-hash = "4e0edbd7df7f8810ddb2fcf7a850f9d6881d67b4baa951ee79e31c60b18d1cc3"
 
 [metadata.files]
 atomicwrites = []
