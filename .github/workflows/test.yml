@@ -3,7 +3,7 @@ name: Test tap-shortcut
 on: [push]
 
 jobs:
-  linting:
+  mypy:
     runs-on: ubuntu-latest
     env:
       SETUPTOOLS_USE_DISTUTILS: stdlib
@@ -29,6 +29,6 @@ jobs:
       run: |
         pip install tox==3.24.4
 
-    - name: Run lint command from tox.ini
+    - name: Run mypy command from tox.ini
       run: |
-        tox -e lint
+        tox -e mypy
