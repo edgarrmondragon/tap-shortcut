@@ -13,3 +13,19 @@ updates:
       timezone: "America/Mexico_City"
     reviewers:
       - "edgarrmondragon"
+  - package-ecosystem: pip
+    directory: "/.github/workflows"
+    schedule:
+      time: "10:23"
+      interval: "daily"
+      timezone: "America/Mexico_City"
+    reviewers:
+      - "edgarrmondragon"
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "10:23"
+      timezone: "America/Mexico_City"
+    reviewers:
+      - "edgarrmondragon"

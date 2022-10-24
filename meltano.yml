@@ -1,6 +1,7 @@
 version: 1
 send_anonymous_usage_stats: false
 project_id: tap-shortcut
+default_environment: dev
 plugins:
   extractors:
   - name: tap-shortcut
@@ -13,10 +14,13 @@ plugins:
     capabilities:
     - catalog
     - discover
+    settings_group_validation:
+    - [token]
     settings:
     - name: token
       kind: password
       label: Shortcut Token
+      description: Shortcut API Token
       documentation: https://shortcut.com/api/rest/v3#Authentication
     repository: https://github.com/edgarrmondragon/tap-shortcut
   loaders:
@@ -29,3 +33,5 @@ plugins:
     config:
       database: output/${MELTANO_EXTRACT__LOAD_SCHEMA}.db
       batch_size: 100
+environments:
+- name: dev
