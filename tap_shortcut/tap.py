@@ -4,9 +4,9 @@ from copy import deepcopy
 from typing import Any, Dict, List, Type, Union
 
 import requests
-from singer import resolve_schema_references
 from singer_sdk import RESTStream, Stream, Tap
 from singer_sdk import typing as th
+from singer_sdk._singerlib import resolve_schema_references
 from toolz.dicttoolz import get_in
 
 from tap_shortcut.client import ShortcutStream
@@ -20,6 +20,7 @@ from tap_shortcut.streams import (
     Members,
     Milestones,
     Projects,
+    ProjectStories,
     Repositories,
     Workflows,
 )
@@ -34,6 +35,7 @@ STREAM_TYPES: List[Type[ShortcutStream]] = [
     Members,
     Milestones,
     Projects,
+    ProjectStories,
     Repositories,
     Workflows,
 ]
@@ -65,6 +67,9 @@ def handle_x_nullable(schema: Dict[str, Any]) -> Dict[str, Any]:
 
     elif "array" in result["type"]:
         result["items"] = handle_x_nullable(result["items"])
+
+    if "enum" in result and None not in result["enum"]:
+        result["enum"].append(None)
 
     return result
 

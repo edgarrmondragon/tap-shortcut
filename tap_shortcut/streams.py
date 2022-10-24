@@ -1,5 +1,7 @@
 """Stream type classes for tap-shortcut."""
 
+from __future__ import annotations
+
 from tap_shortcut.client import ShortcutStream
 
 
@@ -17,6 +19,28 @@ class Projects(ShortcutStream):
     name = "projects"
     path = "/api/v3/projects"
     primary_keys = ["id"]
+
+    def get_child_context(self, record: dict, context: dict | None) -> dict:
+        """Return a dictionary of child context.
+
+        Args:
+            record: A dictionary of the record.
+            context: A dictionary of the context.
+
+        Returns:
+            A dictionary of the child context.
+        """
+        return {"project-public-id": record["id"]}
+
+
+class ProjectStories(ShortcutStream):
+    """Project stories stream."""
+
+    name = "project_stories"
+    path = "/api/v3/projects/{project-public-id}/stories"
+    primary_keys = ["id"]
+    parent_stream_type = Projects
+    ignore_parent_replication_key = True
 
 
 class Epics(ShortcutStream):
