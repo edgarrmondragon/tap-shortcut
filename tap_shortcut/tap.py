@@ -40,7 +40,7 @@ STREAM_TYPES: List[Type[ShortcutStream]] = [
     Workflows,
 ]
 
-OPENAPI_URL = "https://shortcut.com/api/rest/v3/shortcut.swagger.json"
+OPENAPI_URL = "https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json"
 
 
 def handle_x_nullable(schema: Dict[str, Any]) -> Dict[str, Any]:
