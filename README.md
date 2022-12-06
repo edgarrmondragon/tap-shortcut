@@ -22,7 +22,7 @@ A full list of supported settings and capabilities is available by running: `tap
 
 ### Source Authentication and Authorization
 
-See https://shortcut.com/api/rest/v3#Authentication.
+See https://developer.shortcut.com/api/rest/v3#Authentication.
 
 ## Usage
 
