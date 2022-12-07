@@ -93,8 +93,17 @@ class TapShortcut(Tap):
 
         Returns:
             OpenAPI schema.
+
+        Raises:
+            RuntimeError: If the OpenAPI schema cannot be retrieved.
         """
-        return requests.get(OPENAPI_URL).json()
+        response = requests.get(OPENAPI_URL)
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            raise RuntimeError(f"Error retrieving OpenAPI schema ({err})") from err
+
+        return response.json()
 
     def discover_streams(self) -> List[Stream]:
         """Return a list of discovered streams.
