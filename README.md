@@ -1,8 +1,19 @@
-# `tap-shortcut`
+<div align="center">
 
-Singer tap for Shortcut.
+# tap-shortcut
 
-Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+<div>
+  <a href="https://results.pre-commit.ci/latest/github/edgarrmondragon/tap-shortcut/main">
+    <img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/edgarrmondragon/tap-shortcut/main.svg"/>
+  </a>
+  <a href="https://github.com/edgarrmondragon/tap-shortcut/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/edgarrmondragon/tap-shortcut"/>
+  </a>
+</div>
+
+Singer tap for Shortcut. Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+
+</div>
 
 ## Capabilities
 
