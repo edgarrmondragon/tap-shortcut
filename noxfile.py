@@ -37,6 +37,7 @@ def mypy(session: Session) -> None:
     session.install(".")
     session.install(
         "mypy",
+        "pytest",
         "types-requests",
     )
     session.run("mypy", *args)
