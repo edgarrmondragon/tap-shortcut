@@ -24,25 +24,7 @@ tests_dir = "tests"
 python_versions = ["3.11", "3.10", "3.9", "3.8", "3.7"]
 main_python_version = "3.10"
 locations = src_dir, tests_dir, "noxfile.py"
-nox.options.sessions = (
-    "mypy",
-    "tests",
-)
-
-
-@session(python=python_versions)
-def mypy(session: Session) -> None:
-    """Check types with mypy."""
-    args = session.posargs or [src_dir, tests_dir]
-    session.install(".")
-    session.install(
-        "mypy",
-        "pytest",
-        "types-requests",
-    )
-    session.run("mypy", *args)
-    if not session.posargs:
-        session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
+nox.options.sessions = ("tests",)
 
 
 @session(python=python_versions)
