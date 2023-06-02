@@ -4,6 +4,21 @@ from __future__ import annotations
 
 from tap_shortcut.client import ShortcutStream
 
+__all__ = [
+    "Categories",
+    "Epics",
+    "Files",
+    "Groups",
+    "Iterations",
+    "Labels",
+    "Members",
+    "Milestones",
+    "Projects",
+    "ProjectStories",
+    "Repositories",
+    "Workflows",
+]
+
 
 class Members(ShortcutStream):
     """Members stream."""
@@ -20,7 +35,11 @@ class Projects(ShortcutStream):
     path = "/api/v3/projects"
     primary_keys = ["id"]
 
-    def get_child_context(self, record: dict, context: dict | None) -> dict:
+    def get_child_context(
+        self,
+        record: dict,
+        context: dict | None,  # noqa: ARG002
+    ) -> dict:
         """Return a dictionary of child context.
 
         Args:

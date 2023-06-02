@@ -1,4 +1,5 @@
 """Test OpenAPI handling."""
+from __future__ import annotations
 
 import pytest
 
@@ -6,7 +7,7 @@ from tap_shortcut.tap import handle_x_nullable
 
 
 @pytest.mark.parametrize(
-    "input_schema,expected",
+    ("input_schema", "expected"),
     [
         (
             {
@@ -54,7 +55,7 @@ from tap_shortcut.tap import handle_x_nullable
                             "nested": {
                                 "type": "string",
                                 "x-nullable": True,
-                            }
+                            },
                         },
                         "x-nullable": True,
                     },
@@ -77,7 +78,7 @@ from tap_shortcut.tap import handle_x_nullable
                             "nested": {
                                 "type": ["string", "null"],
                                 "x-nullable": True,
-                            }
+                            },
                         },
                         "x-nullable": True,
                     },

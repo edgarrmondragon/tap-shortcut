@@ -1,7 +1,8 @@
 """Shortcut tap class."""
+from __future__ import annotations
 
 from copy import deepcopy
-from typing import Any, Dict, List, Type, Union
+from typing import TYPE_CHECKING, Any
 
 import requests
 from singer_sdk import RESTStream, Stream, Tap
@@ -9,41 +10,30 @@ from singer_sdk import typing as th
 from singer_sdk._singerlib import resolve_schema_references
 from toolz.dicttoolz import get_in
 
-from tap_shortcut.client import ShortcutStream
-from tap_shortcut.streams import (
-    Categories,
-    Epics,
-    Files,
-    Groups,
-    Iterations,
-    Labels,
-    Members,
-    Milestones,
-    Projects,
-    ProjectStories,
-    Repositories,
-    Workflows,
-)
+from tap_shortcut import streams
 
-STREAM_TYPES: List[Type[ShortcutStream]] = [
-    Categories,
-    Epics,
-    Files,
-    Groups,
-    Iterations,
-    Labels,
-    Members,
-    Milestones,
-    Projects,
-    ProjectStories,
-    Repositories,
-    Workflows,
+if TYPE_CHECKING:
+    from tap_shortcut.client import ShortcutStream
+
+STREAM_TYPES: list[type[ShortcutStream]] = [
+    streams.Categories,
+    streams.Epics,
+    streams.Files,
+    streams.Groups,
+    streams.Iterations,
+    streams.Labels,
+    streams.Members,
+    streams.Milestones,
+    streams.Projects,
+    streams.ProjectStories,
+    streams.Repositories,
+    streams.Workflows,
 ]
 
 OPENAPI_URL = "https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json"
 
 
-def handle_x_nullable(schema: Dict[str, Any]) -> Dict[str, Any]:
+def handle_x_nullable(schema: dict[str, Any]) -> dict[str, Any]:
     """Resolve x-nullable properties to standard JSON Schema nullable type.
 
     Args:
@@ -56,7 +46,7 @@ def handle_x_nullable(schema: Dict[str, Any]) -> Dict[str, Any]:
 
     if "object" in result["type"]:
         for prop, prop_schema in result.get("properties", {}).items():
-            prop_type: Union[str, List[str]] = prop_schema.get("type", [])
+            prop_type: str | list[str] = prop_schema.get("type", [])
             types = [prop_type] if isinstance(prop_type, str) else prop_type
             nullable: bool = prop_schema.get("x-nullable", False)
 
@@ -97,22 +87,23 @@ class TapShortcut(Tap):
         Raises:
             RuntimeError: If the OpenAPI schema cannot be retrieved.
         """
-        response = requests.get(OPENAPI_URL)
+        response = requests.get(OPENAPI_URL, timeout=30)
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError as err:
-            raise RuntimeError(f"Error retrieving OpenAPI schema ({err})") from err
+            msg = f"Error retrieving OpenAPI schema ({err})"
+            raise RuntimeError(msg) from err
 
         return response.json()
 
-    def discover_streams(self) -> List[Stream]:
+    def discover_streams(self) -> list[Stream]:
         """Return a list of discovered streams.
 
         Returns:
             A list of Shortcut streams.
         """
         openapi_schema = self.get_openapi_schema()
-        streams: List[RESTStream] = []
+        streams: list[RESTStream] = []
 
         for stream_type in STREAM_TYPES:
             schema = get_in(
