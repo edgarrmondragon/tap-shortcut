@@ -1,6 +1,8 @@
 """REST client handling, including ShortcutStream base class."""
 from __future__ import annotations
 
+import typing as t
+
 from singer_sdk import RESTStream
 from singer_sdk.authenticators import APIKeyAuthenticator
 
@@ -10,6 +12,7 @@ class ShortcutStream(RESTStream):
 
     url_base = "https://api.app.shortcut.com"
     records_jsonpath = "$[*]"
+    primary_keys: t.ClassVar[list[str]] = ["id"]
 
     @property
     def authenticator(self) -> APIKeyAuthenticator:
@@ -33,6 +36,4 @@ class ShortcutStream(RESTStream):
         Returns:
             A dictionary of HTTP headers.
         """
-        headers = {}
-        headers["User-Agent"] = f"{self.tap_name}/{self._tap.plugin_version}"
-        return headers
+        return {"User-Agent": f"{self.tap_name}/{self._tap.plugin_version}"}
