@@ -52,22 +52,21 @@ tap-shortcut --config CONFIG --discover > ./catalog.json
 ### Initialize your Development Environment
 
 ```bash
-pipx install poetry
-poetry install
+pipx install hatch
 ```
 
 ### Create and Run Tests
 
-Create tests within the `tests` subfolder and then run:
+Run integration tests:
 
 ```bash
-poetry run pytest
+hatch run tests:integration
 ```
 
-You can also test the `tap-shortcut` CLI interface directly using `poetry run`:
+You can also test the `tap-shortcut` CLI interface directly:
 
 ```bash
-poetry run tap-shortcut --help
+hatch run sync:console -- --about --format=json
 ```
 
 ### Testing with [Meltano](https://www.meltano.com)
@@ -75,27 +74,25 @@ poetry run tap-shortcut --help
 _**Note:** This tap will work in any Singer environment and does not require Meltano.
 Examples here are for convenience and to streamline end-to-end orchestration scenarios._
 
-Your project comes with a custom `meltano.yml` project file already created. Open the `meltano.yml` and follow any _"TODO"_ items listed in
-the file.
+Your project comes with a custom `meltano.yml` project file already created. Go ahead and [install Meltano](https://docs.meltano.com/getting-started/installation/) if you haven't already.
 
-Next, install Meltano (if you haven't already) and any needed plugins:
+1. Install all plugins
 
-```bash
-# Install meltano
-pipx install meltano
-# Initialize meltano within this directory
-cd tap-shortcut
-meltano install
-```
+   ```bash
+   meltano install
+   ```
 
-Now you can test and orchestrate using Meltano:
+1. Check that the extractor is working properly
 
-```bash
-# Test invocation:
-meltano invoke tap-shortcut --version
-# OR run a test `elt` pipeline:
-meltano elt tap-shortcut target-jsonl
-```
+   ```bash
+   meltano invoke tap-shortcut --version
+   ```
+
+1. Execute an ELT pipeline
+
+   ```bash
+   meltano run tap-shortcut target-jsonl
+   ```
 
 ### SDK Dev Guide
 
