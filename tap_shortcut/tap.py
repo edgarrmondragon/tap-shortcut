@@ -78,7 +78,7 @@ class TapShortcut(Tap):
         ),
     ).to_dict()
 
-    def get_openapi_schema(self) -> dict:
+    def get_openapi_schema(self) -> dict[Any, Any]:
         """Retrieve Swagger/OpenAPI schema for this API.
 
         Returns:
@@ -94,7 +94,7 @@ class TapShortcut(Tap):
             msg = f"Error retrieving OpenAPI schema ({err})"
             raise RuntimeError(msg) from err
 
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]
 
     def discover_streams(self) -> list[Stream]:
         """Return a list of discovered streams.
@@ -103,7 +103,7 @@ class TapShortcut(Tap):
             A list of Shortcut streams.
         """
         openapi_schema = self.get_openapi_schema()
-        streams: list[RESTStream] = []
+        streams: list[RESTStream[None]] = []
 
         for stream_type in STREAM_TYPES:
             schema = get_in(
@@ -121,6 +121,8 @@ class TapShortcut(Tap):
             schema["definitions"] = openapi_schema["definitions"]
             resolved_schema = resolve_schema_references(schema)
             clean_schema = handle_x_nullable(resolved_schema)
+            stream_type.preprocess_schema(clean_schema)
+
             streams.append(stream_type(tap=self, schema=clean_schema))
 
         return sorted(streams, key=lambda x: x.name)

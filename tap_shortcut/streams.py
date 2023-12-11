@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import typing as t
+
 from tap_shortcut.client import ShortcutStream
 
 __all__ = [
@@ -25,6 +27,7 @@ class Members(ShortcutStream):
 
     name = "members"
     path = "/api/v3/members"
+    extra_nullable_fields = ("replaced_by",)
 
 
 class Projects(ShortcutStream):
@@ -35,9 +38,9 @@ class Projects(ShortcutStream):
 
     def get_child_context(
         self,
-        record: dict,
-        context: dict | None,  # noqa: ARG002
-    ) -> dict:
+        record: dict[str, t.Any],
+        context: dict[str, t.Any] | None,  # noqa: ARG002
+    ) -> dict[str, t.Any]:
         """Return a dictionary of child context.
 
         Args:
@@ -57,6 +60,20 @@ class ProjectStories(ShortcutStream):
     path = "/api/v3/projects/{project-public-id}/stories"
     parent_stream_type = Projects
     ignore_parent_replication_key = True
+    extra_nullable_fields = (
+        "description",
+        "synced_item",
+        "unresolved_blocker_comments",
+        "lead_time",
+        "cycle_time",
+    )
+
+    @classmethod
+    def preprocess_schema(cls: type[ProjectStories], schema: dict[str, t.Any]) -> None:
+        """Return the schema of the stream."""
+        super().preprocess_schema(schema)
+        schema["properties"]["lead_time"]["type"] = ["number", "null"]
+        schema["properties"]["cycle_time"]["type"] = ["number", "null"]
 
 
 class Epics(ShortcutStream):
@@ -64,6 +81,7 @@ class Epics(ShortcutStream):
 
     name = "epics"
     path = "/api/v3/epics"
+    extra_nullable_fields = ("description",)
 
 
 class Workflows(ShortcutStream):

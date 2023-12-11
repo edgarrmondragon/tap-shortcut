@@ -1,6 +1,8 @@
 """Test OpenAPI handling."""
 from __future__ import annotations
 
+import typing as t
+
 import pytest
 
 from tap_shortcut.tap import handle_x_nullable
@@ -148,6 +150,9 @@ from tap_shortcut.tap import handle_x_nullable
     ],
     ids=["simple_object", "nested_object", "nested_array"],
 )
-def test_handle_x_nullable(input_schema: dict, expected: dict):
+def test_handle_x_nullable(
+    input_schema: dict[str, t.Any],
+    expected: dict[str, t.Any],
+) -> None:
     """Test handling of x-nullable."""
     assert handle_x_nullable(input_schema) == expected

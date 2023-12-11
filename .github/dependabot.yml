@@ -10,6 +10,7 @@ updates:
     schedule:
       interval: "weekly"
       timezone: "America/Mexico_City"
+    versioning-strategy: increase-if-necessary
     reviewers:
       - "edgarrmondragon"
     commit-message:
