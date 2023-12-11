@@ -31,8 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         script: ["test:integration"]
-        # python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         include:
         - { script: "test:dependencies", python-version: "3.11" }
         - { script: "typing:check",      python-version: "3.11" }
