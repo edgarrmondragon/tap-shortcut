@@ -23,22 +23,19 @@ dependencies = [
   "singer-sdk~=0.34.0",
   "toolz==0.12",
 ]
-[project.optional-dependencies]
-testing = [
+optional-dependencies.testing = [
   "deptry>=0.12",
   "pytest>=7.4",
   "singer-sdk[testing]~=0.34.0",
 ]
-typing = [
+optional-dependencies.typing = [
   "mypy",
   "types-requests",
 ]
-[project.urls]
-Documentation = "https://github.com/edgarrmondragon/tap-shortcut#readme"
-Homepage = "https://github.com/edgarrmondragon/tap-shortcut"
-Source = "https://github.com/edgarrmondragon/tap-shortcut"
-[project.scripts]
-tap-shortcut = "tap_shortcut.tap:TapShortcut.cli"
+urls.Documentation = "https://github.com/edgarrmondragon/tap-shortcut#readme"
+urls.Homepage = "https://github.com/edgarrmondragon/tap-shortcut"
+urls.Source = "https://github.com/edgarrmondragon/tap-shortcut"
+scripts.tap-shortcut = "tap_shortcut.tap:TapShortcut.cli"
 
 [tool.hatch.version]
 source = "vcs"
