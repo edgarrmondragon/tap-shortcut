@@ -10,9 +10,9 @@ updates:
     schedule:
       interval: "weekly"
       timezone: "America/Mexico_City"
-    versioning-strategy: increase-if-necessary
     reviewers:
       - "edgarrmondragon"
+    versioning-strategy: increase-if-necessary
     commit-message:
       prefix: "feat(deps): "
       prefix-development: "chore(deps-dev): "
@@ -34,3 +34,7 @@ updates:
       - "edgarrmondragon"
     commit-message:
       prefix: "ci: "
+    groups:
+      actions:
+        patterns:
+          - "*"
