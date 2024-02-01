@@ -14,7 +14,7 @@ keywords = [
   "Shortcut",
   "singer.io",
 ]
-license = "Apache-2.0"
+license.file = "LICENSE"
 maintainers = [{ name = "Edgar Ramírez-Mondragón", email = "edgarrm358@gmail.com"} ]
 authors = [{ name = "Edgar Ramírez-Mondragón", email = "edgarrm358@gmail.com"} ]
 requires-python = ">=3.8,<4"
@@ -38,9 +38,9 @@ optional-dependencies.typing = [
   "mypy",
   "types-requests",
 ]
-urls.Documentation = "https://github.com/edgarrmondragon/tap-shortcut#readme"
-urls.Homepage = "https://github.com/edgarrmondragon/tap-shortcut"
-urls.Source = "https://github.com/edgarrmondragon/tap-shortcut"
+urls.documentation = "https://github.com/edgarrmondragon/tap-shortcut#readme"
+urls.homepage = "https://github.com/edgarrmondragon/tap-shortcut"
+urls.source = "https://github.com/edgarrmondragon/tap-shortcut"
 scripts.tap-shortcut = "tap_shortcut.tap:TapShortcut.cli"
 
 [tool.hatch.version]
@@ -55,6 +55,11 @@ features = ["testing"]
 [tool.hatch.envs.test.scripts]
 integration = "pytest {args:tests}"
 dependencies = "deptry ."
+
+[tool.hatch.envs.all]
+template = "test"
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
 [tool.hatch.envs.typing]
 features = ["testing", "typing"]
@@ -108,8 +113,11 @@ DEP002 = [
 addopts = "-vvv"
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 warn_redundant_casts = true
+warn_return_any = true
+warn_no_return = true
+warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
