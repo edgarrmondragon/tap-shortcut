@@ -15,8 +15,12 @@ keywords = [
   "singer.io",
 ]
 license.file = "LICENSE"
-maintainers = [{ name = "Edgar Ramírez-Mondragón", email = "edgarrm358@gmail.com"} ]
-authors = [{ name = "Edgar Ramírez-Mondragón", email = "edgarrm358@gmail.com"} ]
+maintainers = [
+  { name = "Edgar Ramírez-Mondragón", email = "edgarrm358@gmail.com" },
+]
+authors = [
+  { name = "Edgar Ramírez-Mondragón", email = "edgarrm358@gmail.com" },
+]
 requires-python = ">=3.8"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
@@ -56,7 +60,9 @@ console = "tap-shortcut {args}"
 jsonl = "tap-shortcut {args} > tap-shortcut.jsonl"
 
 [tool.hatch.envs.test]
-features = ["testing"]
+features = [
+  "testing",
+]
 [tool.hatch.envs.test.scripts]
 integration = "pytest {args:tests}"
 dependencies = "deptry ."
@@ -64,40 +70,60 @@ dependencies = "deptry ."
 [tool.hatch.envs.all]
 template = "test"
 [[tool.hatch.envs.all.matrix]]
-python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+python = [
+  "3.8",
+  "3.9",
+  "3.10",
+  "3.11",
+  "3.12",
+]
 
 [tool.hatch.envs.typing]
-features = ["testing", "typing"]
+features = [
+  "testing",
+  "typing",
+]
 [tool.hatch.envs.typing.scripts]
 check = "mypy --strict {args:tap_shortcut tests}"
 
 [tool.ruff]
 line-length = 88
-src = ["tap_shortcut", "tests"]
+src = [
+  "tap_shortcut",
+  "tests",
+]
 
 [tool.ruff.lint]
 ignore = [
   "ANN101", # missing-type-self
   "DJ",     # flake8-django
-  "COM812",  # missing-trailing-comma
-  "ISC001",  # single-line-implicit-string-concatenation
+  "COM812", # missing-trailing-comma
+  "ISC001", # single-line-implicit-string-concatenation
 ]
-select = ["ALL"]
+select = [
+  "ALL",
+]
 unfixable = [
-  "ERA001",  # commented-out-code
+  "ERA001", # commented-out-code
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"noxfile.py" = ["ANN"]
+"noxfile.py" = [
+  "ANN",
+]
 "tests/*" = [
-  "ANN201",  # missing-return-type-public-function
-  "S101",    # assert
-  "SLF001",  # private-member-access
+  "ANN201", # missing-return-type-public-function
+  "S101",   # assert
+  "SLF001", # private-member-access
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["tap_shortcut"]
-required-imports = ["from __future__ import annotations"]
+known-first-party = [
+  "tap_shortcut",
+]
+required-imports = [
+  "from __future__ import annotations",
+]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -127,4 +153,8 @@ warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 ignore_missing_imports = true
-module = ["backoff.*", "toolz.*", "singer.*"]
+module = [
+  "backoff.*",
+  "toolz.*",
+  "singer.*",
+]
