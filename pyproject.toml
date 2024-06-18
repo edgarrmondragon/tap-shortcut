@@ -35,7 +35,7 @@ dynamic = [
 ]
 dependencies = [
   "requests",
-  "singer-sdk~=0.37.0",
+  "singer-sdk~=0.38.0",
   "toolz==0.12.1",
 ]
 optional-dependencies.testing = [
