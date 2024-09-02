@@ -7,7 +7,7 @@ requires = [
 
 [project]
 name = "tap-shortcut"
-description = "`tap-shortcut` is a Singer tap for Shortcut, built with the Meltano SDK for Singer Taps."
+description = "Singer tap for Shortcut, built with the Meltano SDK for Singer Taps."
 readme = "README.md"
 keywords = [
   "ELT",
