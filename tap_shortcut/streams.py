@@ -136,6 +136,12 @@ class Iterations(ShortcutStream):
     name = "iterations"
     path = "/api/v3/iterations"
 
+    @classmethod
+    def preprocess_schema(cls: type[Iterations], schema: dict[str, t.Any]) -> None:
+        """Return the schema of the stream."""
+        super().preprocess_schema(schema)
+        schema["properties"]["associated_groups"]["type"] = ["array", "null"]
+
 
 class Repositories(ShortcutStream):
     """Repositories stream."""
