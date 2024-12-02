@@ -19,8 +19,8 @@ __all__ = [
     "Labels",
     "Members",
     "Milestones",
-    "Projects",
     "ProjectStories",
+    "Projects",
     "Repositories",
     "Workflows",
 ]
