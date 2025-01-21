@@ -78,6 +78,8 @@ class ProjectStories(ShortcutStream):
         super().preprocess_schema(schema)
         schema["properties"]["lead_time"]["type"] = ["number", "null"]
         schema["properties"]["cycle_time"]["type"] = ["number", "null"]
+        schema["properties"]["parent_story_id"]["type"] = ["integer", "null"]
+        schema["properties"]["sub_task_story_ids"]["type"] = ["array", "null"]
 
 
 class Epics(ShortcutStream):
