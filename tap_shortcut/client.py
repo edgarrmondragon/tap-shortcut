@@ -57,7 +57,7 @@ class ShortcutStream(RESTStream[None]):
         return {"User-Agent": f"{self.tap_name}/{self._tap.plugin_version}"}
 
     @classmethod
-    def preprocess_schema(cls: type[T], schema: dict[str, t.Any]) -> None:
+    def preprocess_schema(cls, schema: dict[str, t.Any]) -> None:
         """Preprocess the schema.
 
         Args:
