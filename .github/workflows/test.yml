@@ -7,6 +7,8 @@ on:
     - tap_shortcut/**
     - tests/**
     - pyproject.toml
+    - tox.ini
+    - uv.lock
     - .github/workflows/test.yml
     - .github/workflows/constraints.txt
   pull_request:
@@ -15,56 +17,56 @@ on:
     - tap_shortcut/**
     - tests/**
     - pyproject.toml
+    - tox.ini
+    - uv.lock
     - .github/workflows/test.yml
     - .github/workflows/constraints.txt
   schedule:
   - cron: "0 10 * * *"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  FORCE_COLOR: "1"
+  UV_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
+
 jobs:
   tests:
     runs-on: ubuntu-latest
-    env:
-      FORCE_COLOR: "1"
-      PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
     strategy:
       fail-fast: false
+      max-parallel: 2
       matrix:
-        script: ["test:integration"]
         python-version:
-        - "3.9"
-        - "3.10"
-        - "3.11"
-        - "3.12"
         - "3.13"
+        - "3.12"
+        - "3.11"
+        - "3.10"
+        - "3.9"
         include:
-        - { script: "test:dependencies", python-version: "3.x" }
-        - { script: "typing:check",      python-version: "3.x" }
+        - { environment: "dependencies", python-version: "3.x" }
+        - { environment: "typing",       python-version: "3.x" }
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         fetch-depth: 0
 
-    - uses: actions/setup-python@v5.5.0
+    - uses: actions/setup-python@3605726ffa6ef7750b99ff496e5b88248b414e26 # v4.9.0
       id: setup-python
       with:
         python-version: ${{ matrix.python-version }}
         allow-prereleases: true
-        cache: pip
 
-    - name: Upgrade pip
-      run: |
-        pip install pip
-        pip --version
-
-    - name: Install Hatch
-      run: |
-        pipx install --python '${{ steps.setup-python.outputs.python-path }}' hatch
-        hatch --version
+    - uses: astral-sh/setup-uv@0c5e2b8115b80b4c7c5ddf6ffdd634974642d182 # v5.4.1
 
     - name: Run
       env:
+        UV_PYTHON: ${{ steps.setup-python.outputs.python-path }}
         TAP_SHORTCUT_TOKEN: ${{ secrets.TAP_SHORTCUT_TOKEN }}
-      run: |
-        hatch run ${{ matrix.script }}
+      run: >
+        uvx
+        tox -e ${{ matrix.environment || matrix.python-version }}

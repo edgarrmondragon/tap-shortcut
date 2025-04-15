@@ -51,22 +51,20 @@ tap-shortcut --config CONFIG --discover > ./catalog.json
 
 ### Initialize your Development Environment
 
-```bash
-pipx install hatch
-```
+Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/) if you haven't already.
 
 ### Create and Run Tests
 
 Run integration tests:
 
 ```bash
-hatch run test:integration
+uv run pytest
 ```
 
 You can also test the `tap-shortcut` CLI interface directly:
 
 ```bash
-hatch run sync:console -- --about --format=json
+uv run tap-shortcut --help
 ```
 
 ### Testing with [Meltano](https://www.meltano.com)

@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any
 import requests
 from singer_sdk import RESTStream, Stream, Tap
 from singer_sdk import typing as th
-from singer_sdk._singerlib import resolve_schema_references
+from singer_sdk.singerlib import resolve_schema_references
 from toolz.dicttoolz import get_in
 
 from tap_shortcut import streams

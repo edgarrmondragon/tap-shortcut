@@ -1,8 +1,8 @@
 [build-system]
 build-backend = "hatchling.build"
 requires = [
-  "hatch-vcs",
-  "hatchling",
+  "hatch-vcs==0.4",
+  "hatchling==1.27",
 ]
 
 [project]
@@ -39,53 +39,28 @@ dependencies = [
   "singer-sdk~=0.45.3",
   "toolz==1",
 ]
-optional-dependencies.testing = [
-  "deptry>=0.12",
-  "pytest>=7.4",
-  "singer-sdk[testing]",
-]
-optional-dependencies.typing = [
-  "mypy",
-  "types-requests",
-]
 urls.Documentation = "https://github.com/edgarrmondragon/tap-shortcut#readme"
 urls.Homepage = "https://github.com/edgarrmondragon/tap-shortcut"
 urls.Repository = "https://github.com/edgarrmondragon/tap-shortcut"
 scripts.tap-shortcut = "tap_shortcut.tap:TapShortcut.cli"
 
+[dependency-groups]
+dev = [
+  { include-group = "testing" },
+  { include-group = "typing" },
+]
+testing = [
+  "deptry>=0.12",
+  "pytest>=7.4",
+  "singer-sdk[testing]",
+]
+typing = [
+  "mypy",
+  "types-requests",
+]
+
 [tool.hatch.version]
 source = "vcs"
-
-[tool.hatch.envs.sync.scripts]
-console = "tap-shortcut {args}"
-jsonl = "tap-shortcut {args} > tap-shortcut.jsonl"
-
-[tool.hatch.envs.test]
-features = [
-  "testing",
-]
-[tool.hatch.envs.test.scripts]
-integration = "pytest {args:tests}"
-dependencies = "deptry ."
-
-[tool.hatch.envs.all]
-template = "test"
-[[tool.hatch.envs.all.matrix]]
-python = [
-  "3.9",
-  "3.10",
-  "3.11",
-  "3.12",
-  "3.13",
-]
-
-[tool.hatch.envs.typing]
-features = [
-  "testing",
-  "typing",
-]
-[tool.hatch.envs.typing.scripts]
-check = "mypy --strict {args:tap_shortcut tests}"
 
 [tool.ruff]
 line-length = 88
@@ -98,7 +73,6 @@ lint.select = [
   "ALL",
 ]
 lint.ignore = [
-  "ANN101", # missing-type-self
   "COM812", # missing-trailing-comma
   "DJ",     # flake8-django
   "ISC001", # single-line-implicit-string-concatenation
@@ -127,13 +101,6 @@ lint.pydocstyle.convention = "google"
 mypy = "mypy"
 types-requests = "requests"
 
-[tool.deptry.per_rule_ignores]
-DEP002 = [
-  "deptry",
-  "mypy",
-  "pytest",
-]
-
 [tool.pyproject-fmt]
 max_supported_python = "3.13"
 
@@ -155,3 +122,7 @@ module = [
   "toolz.*",
   "singer.*",
 ]
+
+[tool.uv]
+preview = true
+required-version = ">=0.5.19"
