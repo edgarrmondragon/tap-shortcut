@@ -57,6 +57,7 @@ testing = [
 ]
 typing = [
   "mypy",
+  "ty>=0.0.1a16",
   "types-requests",
 ]
 
@@ -100,6 +101,7 @@ lint.pydocstyle.convention = "google"
 
 [tool.deptry.package_module_name_map]
 mypy = "mypy"
+ty = "ty"
 types-requests = "requests"
 
 [tool.pyproject-fmt]
@@ -139,7 +141,10 @@ commands = [ [ "tap-shortcut", { replace = "posargs", default = [ "--config=ENV"
 
 [tool.tox.env.typing]
 dependency_groups = [ "testing", "typing" ]
-commands = [ [ "mypy", "--strict", { replace = "posargs", default = [ "tap_shortcut", "tests" ], extend = true } ] ]
+commands = [
+  [ "mypy", "--strict", { replace = "posargs", default = [ "tap_shortcut", "tests" ], extend = true } ],
+  [ "ty", "check", { replace = "posargs", default = [ "tap_shortcut", "tests" ], extend = true } ],
+]
 
 [tool.mypy]
 warn_redundant_casts = true

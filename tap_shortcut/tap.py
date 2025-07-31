@@ -109,7 +109,7 @@ class TapShortcut(Tap):
             schema = get_in(
                 keys=[
                     "paths",
-                    stream_type.path,
+                    stream_type.path,  # ty: ignore[unresolved-attribute]
                     "get",
                     "responses",
                     "200",
