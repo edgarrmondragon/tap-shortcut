@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
+import importlib.resources
+import json
 import sys
 from copy import deepcopy
 from typing import TYPE_CHECKING, Any
 
-import requests
 from singer_sdk import RESTStream, Stream, Tap
 from singer_sdk import typing as th
 from singer_sdk.singerlib import resolve_schema_references
@@ -38,7 +39,7 @@ STREAM_TYPES: list[type[ShortcutStream]] = [
     streams.Workflows,
 ]
 
-OPENAPI_URL = "https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json"
+SPEC = importlib.resources.files("tap_shortcut") / "openapi.json"
 
 
 def handle_x_nullable(schema: dict[str, Any]) -> dict[str, Any]:
@@ -95,14 +96,8 @@ class TapShortcut(Tap):
         Raises:
             RuntimeError: If the OpenAPI schema cannot be retrieved.
         """
-        response = requests.get(OPENAPI_URL, timeout=30)
-        try:
-            response.raise_for_status()
-        except requests.exceptions.HTTPError as err:
-            msg = f"Error retrieving OpenAPI schema ({err})"
-            raise RuntimeError(msg) from err
-
-        return response.json()  # type: ignore[no-any-return]
+        with SPEC.open() as spec:
+            return json.load(spec)  # type: ignore[no-any-return]
 
     @override
     def discover_streams(self) -> list[Stream]:
