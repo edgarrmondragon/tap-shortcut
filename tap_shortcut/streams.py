@@ -31,7 +31,7 @@ class Members(ShortcutStream):
 
     name = "members"
     path = "/api/v3/members"
-    extra_nullable_fields = ("replaced_by",)
+    extra_nullable_fields = ("replaced_by", "installation_id")
 
 
 class Projects(ShortcutStream):
