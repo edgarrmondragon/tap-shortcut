@@ -1,0 +1,33 @@
+name: Update OpenAPI Specification for shortcut.com
+
+on:
+  workflow_dispatch:
+  schedule:
+  # On Fridays
+  - cron: '0 12 * * 5'
+
+env:
+  # renovate: datasource=pypi depName=uv
+  UV_VERSION: 0.8.4
+
+jobs:
+  update_openapi_specification:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
+      id: generate-token
+      with:
+        app-id: ${{ vars.APP_ID }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: astral-sh/setup-uv@e92bafb6253dcd438e0484186d7669ea7a8ca1cc # v6.4.3
+      with:
+        version: ${{ env.UV_VERSION }}
+    - run: uv run --script scripts/update_openapi.py
+    - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      with:
+        title: 'chore: Update OpenAPI Specification for shortcut.com'
+        token: ${{ steps.generate-token.outputs.token }}
