@@ -710,10 +710,10 @@ wheels = [
 
 [[package]]
 name = "singer-sdk"
-version = "0.47.4"
-source = { registry = "https://pypi.org/simple" }
+version = "0.47.5.dev88+g3820e3b0"
+source = { git = "https://github.com/meltano/sdk.git?rev=main#3820e3b062147492e0bed4eb8a804870a77585ec" }
 dependencies = [
-    { name = "backoff", marker = "python_full_version < '4'" },
+    { name = "backoff" },
     { name = "backports-datetime-fromisoformat", marker = "python_full_version < '3.11'" },
     { name = "click" },
     { name = "fsspec" },
@@ -730,12 +730,8 @@ dependencies = [
     { name = "simpleeval" },
     { name = "simplejson" },
     { name = "sqlalchemy" },
-    { name = "typing-extensions" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
     { name = "universal-pathlib" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/c8/5b/1b8e37d223e7651c30ecc45d5772950c5babb4f137494a444e314d160e2e/singer_sdk-0.47.4.tar.gz", hash = "sha256:d70642f2f5d55f794fe3b311ccacabb86a41c3a3bb37260b3119d3aadce0459c", size = 2450794, upload-time = "2025-06-25T00:49:58Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/48/06/00943f3da3998aa929a761286b8b84e7305083cc70d41cf88ecd9bf65186/singer_sdk-0.47.4-py3-none-any.whl", hash = "sha256:9522f92e7c14dc5773bc4d83dee456ad4760869957f718bc053f75c43121107e", size = 192387, upload-time = "2025-06-25T00:49:56.278Z" },
 ]
 
 [package.optional-dependencies]
@@ -819,7 +815,7 @@ typing = [
 [package.metadata]
 requires-dist = [
     { name = "requests" },
-    { name = "singer-sdk", specifier = "~=0.47.0" },
+    { name = "singer-sdk", git = "https://github.com/meltano/sdk.git?rev=main" },
     { name = "toolz", specifier = "==1" },
     { name = "typing-extensions", marker = "python_full_version < '3.12'", specifier = ">=4.14" },
 ]
@@ -829,13 +825,13 @@ dev = [
     { name = "deptry", specifier = ">=0.12" },
     { name = "mypy" },
     { name = "pytest", specifier = ">=7.4" },
-    { name = "singer-sdk", extras = ["testing"] },
+    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=main" },
     { name = "types-requests" },
 ]
 testing = [
     { name = "deptry", specifier = ">=0.12" },
     { name = "pytest", specifier = ">=7.4" },
-    { name = "singer-sdk", extras = ["testing"] },
+    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=main" },
 ]
 typing = [
     { name = "mypy" },
