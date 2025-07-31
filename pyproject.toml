@@ -38,6 +38,7 @@ dependencies = [
   "requests",
   "singer-sdk~=0.47.0",
   "toolz==1",
+  "typing-extensions>=4.14; python_full_version<'3.12'",
 ]
 urls.Documentation = "https://github.com/edgarrmondragon/tap-shortcut#readme"
 urls.Homepage = "https://github.com/edgarrmondragon/tap-shortcut"

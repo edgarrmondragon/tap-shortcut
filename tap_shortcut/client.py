@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+import sys
 import typing as t
 
 from singer_sdk import RESTStream
 from singer_sdk.authenticators import APIKeyAuthenticator
 
-T = t.TypeVar("T", bound="ShortcutStream")
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
 
 
 def _handle_runtime_nullables(
@@ -33,12 +37,9 @@ class ShortcutStream(RESTStream[None]):
     extra_nullable_fields: tuple[str, ...] = ()
 
     @property
+    @override
     def authenticator(self) -> APIKeyAuthenticator:
-        """Get an authenticator object.
-
-        Returns:
-            The authenticator instance for this REST stream.
-        """
+        """Request authenticator."""
         token: str = self.config["token"]
         return APIKeyAuthenticator.create_for_stream(
             self,
@@ -46,15 +47,6 @@ class ShortcutStream(RESTStream[None]):
             value=token,
             location="header",
         )
-
-    @property
-    def http_headers(self) -> dict[str, str]:
-        """Return the http headers needed.
-
-        Returns:
-            A dictionary of HTTP headers.
-        """
-        return {"User-Agent": f"{self.tap_name}/{self._tap.plugin_version}"}
 
     @classmethod
     def preprocess_schema(cls, schema: dict[str, t.Any]) -> None:

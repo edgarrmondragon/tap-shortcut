@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 
 [[package]]
@@ -795,6 +795,7 @@ dependencies = [
     { name = "requests" },
     { name = "singer-sdk" },
     { name = "toolz" },
+    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
 ]
 
 [package.dev-dependencies]
@@ -820,6 +821,7 @@ requires-dist = [
     { name = "requests" },
     { name = "singer-sdk", specifier = "~=0.47.0" },
     { name = "toolz", specifier = "==1" },
+    { name = "typing-extensions", marker = "python_full_version < '3.12'", specifier = ">=4.14" },
 ]
 
 [package.metadata.requires-dev]

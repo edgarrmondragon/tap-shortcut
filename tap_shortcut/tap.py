@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from copy import deepcopy
 from typing import TYPE_CHECKING, Any
 
@@ -12,6 +13,12 @@ from singer_sdk.singerlib import resolve_schema_references
 from toolz.dicttoolz import get_in
 
 from tap_shortcut import streams
+
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
+
 
 if TYPE_CHECKING:
     from tap_shortcut.client import ShortcutStream
@@ -97,12 +104,9 @@ class TapShortcut(Tap):
 
         return response.json()  # type: ignore[no-any-return]
 
+    @override
     def discover_streams(self) -> list[Stream]:
-        """Return a list of discovered streams.
-
-        Returns:
-            A list of Shortcut streams.
-        """
+        """Return a list of discovered streams."""
         openapi_schema = self.get_openapi_schema()
         streams: list[RESTStream[None]] = []
 

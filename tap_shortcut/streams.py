@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+import sys
 import typing as t
 
 from tap_shortcut.client import ShortcutStream
+
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
 
 if t.TYPE_CHECKING:
     from singer_sdk.helpers.types import Context, Record
@@ -40,20 +46,13 @@ class Projects(ShortcutStream):
     name = "projects"
     path = "/api/v3/projects"
 
+    @override
     def get_child_context(
         self,
         record: Record,
-        context: Context | None,  # noqa: ARG002
+        context: Context | None,
     ) -> dict[str, t.Any]:
-        """Return a dictionary of child context.
-
-        Args:
-            record: A dictionary of the record.
-            context: A dictionary of the context.
-
-        Returns:
-            A dictionary of the child context.
-        """
+        """Return a dictionary of child context."""
         return {"project-public-id": record["id"]}
 
 
@@ -73,7 +72,8 @@ class ProjectStories(ShortcutStream):
     )
 
     @classmethod
-    def preprocess_schema(cls: type[ProjectStories], schema: dict[str, t.Any]) -> None:
+    @override
+    def preprocess_schema(cls, schema: dict[str, t.Any]) -> None:
         """Return the schema of the stream."""
         super().preprocess_schema(schema)
         schema["properties"]["lead_time"]["type"] = ["number", "null"]
@@ -139,7 +139,8 @@ class Iterations(ShortcutStream):
     path = "/api/v3/iterations"
 
     @classmethod
-    def preprocess_schema(cls: type[Iterations], schema: dict[str, t.Any]) -> None:
+    @override
+    def preprocess_schema(cls, schema: dict[str, t.Any]) -> None:
         """Return the schema of the stream."""
         super().preprocess_schema(schema)
         schema["properties"]["associated_groups"]["type"] = ["array", "null"]
