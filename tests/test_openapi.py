@@ -6,7 +6,7 @@ import typing as t
 
 import pytest
 
-from tap_shortcut.tap import handle_x_nullable
+from tap_shortcut.client import handle_x_nullable
 
 
 @pytest.mark.parametrize(

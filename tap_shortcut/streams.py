@@ -75,7 +75,7 @@ class ProjectStories(ShortcutStream):
     @override
     def preprocess_schema(cls, schema: dict[str, t.Any]) -> None:
         """Return the schema of the stream."""
-        super().preprocess_schema(schema)
+        ShortcutStream.preprocess_schema(schema)
         schema["properties"]["lead_time"]["type"] = ["number", "null"]
         schema["properties"]["cycle_time"]["type"] = ["number", "null"]
         schema["properties"]["parent_story_id"]["type"] = ["integer", "null"]
@@ -142,7 +142,7 @@ class Iterations(ShortcutStream):
     @override
     def preprocess_schema(cls, schema: dict[str, t.Any]) -> None:
         """Return the schema of the stream."""
-        super().preprocess_schema(schema)
+        ShortcutStream.preprocess_schema(schema)
         schema["properties"]["associated_groups"]["type"] = ["array", "null"]
 
 
