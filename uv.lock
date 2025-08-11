@@ -755,8 +755,8 @@ wheels = [
 
 [[package]]
 name = "singer-sdk"
-version = "0.48.1.dev7+gcd244d32"
-source = { git = "https://github.com/meltano/sdk.git?rev=cd244d327a76e1a6082d52ca3da791bdfdc29053#cd244d327a76e1a6082d52ca3da791bdfdc29053" }
+version = "0.48.1.dev10+g3fb124e2f"
+source = { git = "https://github.com/meltano/sdk.git?rev=3fb124e2f3609432473ad42b05b59206f87a7293#3fb124e2f3609432473ad42b05b59206f87a7293" }
 dependencies = [
     { name = "backoff" },
     { name = "backports-datetime-fromisoformat", marker = "python_full_version < '3.11'" },
@@ -862,7 +862,7 @@ typing = [
 [package.metadata]
 requires-dist = [
     { name = "requests" },
-    { name = "singer-sdk", git = "https://github.com/meltano/sdk.git?rev=cd244d327a76e1a6082d52ca3da791bdfdc29053" },
+    { name = "singer-sdk", git = "https://github.com/meltano/sdk.git?rev=3fb124e2f3609432473ad42b05b59206f87a7293" },
     { name = "toolz", specifier = "==1" },
     { name = "typing-extensions", marker = "python_full_version < '3.12'", specifier = ">=4.14" },
 ]
@@ -872,14 +872,14 @@ dev = [
     { name = "deptry", specifier = ">=0.12" },
     { name = "mypy" },
     { name = "pytest", specifier = ">=7.4" },
-    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=cd244d327a76e1a6082d52ca3da791bdfdc29053" },
+    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=3fb124e2f3609432473ad42b05b59206f87a7293" },
     { name = "ty", specifier = ">=0.0.1a16" },
     { name = "types-requests" },
 ]
 testing = [
     { name = "deptry", specifier = ">=0.12" },
     { name = "pytest", specifier = ">=7.4" },
-    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=cd244d327a76e1a6082d52ca3da791bdfdc29053" },
+    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=3fb124e2f3609432473ad42b05b59206f87a7293" },
 ]
 typing = [
     { name = "mypy" },

@@ -167,4 +167,4 @@ preview = true
 required-version = ">=0.5.19"
 
 [tool.uv.sources]
-singer-sdk = { git = "https://github.com/meltano/sdk.git", rev = "cd244d327a76e1a6082d52ca3da791bdfdc29053" }
+singer-sdk = { git = "https://github.com/meltano/sdk.git", rev = "3fb124e2f3609432473ad42b05b59206f87a7293" }
