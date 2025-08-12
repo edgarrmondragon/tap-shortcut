@@ -165,6 +165,3 @@ module = [
 [tool.uv]
 preview = true
 required-version = ">=0.5.19"
-
-[tool.uv.sources]
-singer-sdk = { git = "https://github.com/meltano/sdk.git", rev = "3fb124e2f3609432473ad42b05b59206f87a7293" }
